@@ -1,10 +1,4 @@
-<?php 
-session_start(); 
-
-require 'vendor/autoload.php';
-use Parse\ParseClient;
-ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw', 
-  'B7llkQxaYdCqUlFENwTCEeavarSvQp4It25a0kpH', '7QwWggaRtzFsNniqlgrXwtRqkLaXmW2BzOJMv6O9');
+<?php
 
 function echoActiveClassIfRequestMatches($requestUri)
 {

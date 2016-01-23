@@ -1,10 +1,13 @@
 <?php
-session_start();
+
 require 'vendor/autoload.php';
 use Parse\ParseClient;
+session_start();
 ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',
     'B7llkQxaYdCqUlFENwTCEeavarSvQp4It25a0kpH', '7QwWggaRtzFsNniqlgrXwtRqkLaXmW2BzOJMv6O9');
 use Parse\ParseUser;
+use Parse\ParseObject;
+
 
 //Initialize error message.
 $errorMessage = "";
@@ -35,15 +38,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         try {
             $user->signUp();
             // Hooray! Let them use the app now.
+            $_SESSION['login'] = "1";
+            $_SESSION['email'] = $email;
+            $_SESSION['userid'] = $user->getObjectId();
+            header("Location: index.php");
         } catch (ParseException $ex) {
             // Show the error message somewhere and let the user try again.
             echo "Error: " . $ex->getCode() . " " . $ex->getMessage();
         }
-
-        // update session and redirect to homepage.
-        $_SESSION['login'] = "1";
-        $_SESSION['email'] = $email;
-        header("Location: index.php");
     }
 }
 ?>

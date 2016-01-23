@@ -1,4 +1,11 @@
-<?php include("assets/templates/header.php"); ?>
+<?php
+require 'vendor/autoload.php';
+use Parse\ParseClient;
+session_start();
+ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',
+	'B7llkQxaYdCqUlFENwTCEeavarSvQp4It25a0kpH', '7QwWggaRtzFsNniqlgrXwtRqkLaXmW2BzOJMv6O9');
+include("assets/templates/header.php")
+?>
 	<!-- Main -->
 	<div id="headerwrap">
 	    <div class="container">
@@ -10,7 +17,7 @@
                 
                 <div class="row">
                     <div class="col-lg-6">
-                        <p><br/><a href="#" class="btn btn-theme">Create a Survey</a></p>
+                        <p><br/><a href="create.php" class="btn btn-theme">Create a Survey</a></p>
                     </div>
                     <div class="col-lg-6">
                         <p><br/><a href="#" class="btn btn-theme">View Submissions</a></p>
