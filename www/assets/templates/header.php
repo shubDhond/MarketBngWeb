@@ -36,15 +36,6 @@ function echoActiveClassIfRequestMatches($requestUri)
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/assets/js/datepicker/js/date.js"></script>
     <script type="text/javascript" src="/assets/js/datepicker/js/daterangepicker.jQuery.js"></script>
-    <script type="text/javascript">
-      $(function(){
-          $('#rangeA').daterangepicker();
-          $('#rangeBa, #rangeBb').daterangepicker();
-          $('#rangeC').daterangepicker({arrows: true});
-          $('#rangeD').daterangepicker();
-          $('#rangeE').daterangepicker({constrainDates: true});
-       });
-    </script>
 
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
@@ -83,7 +74,7 @@ function echoActiveClassIfRequestMatches($requestUri)
                     echo '<li class="nav-item"><a href="logout.php">LOGOUT</a></li>';
                 }
                 else{
-                    echo '<li class="nav-item"><a href="login.php">LOGIN</a></li>';             
+                    echo '<li class="nav-item"><a href="login.php">CORPORATE PORTAL</a></li>';
                 }
             ?>
           </ul>

@@ -2,7 +2,8 @@
 require 'vendor/autoload.php';
 use Parse\ParseClient;
 use Parse\ParseUser;
-use Parse\ParseSessionStorage;
+use Parse\ParseQuery;
+
 session_start();
 ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',
     'B7llkQxaYdCqUlFENwTCEeavarSvQp4It25a0kpH', '7QwWggaRtzFsNniqlgrXwtRqkLaXmW2BzOJMv6O9');
@@ -25,10 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     try {
       $user = ParseUser::logIn($email, $pass);
-        $_SESSION['login'] = "1";
-        $_SESSION['email'] = $email;
-        $_SESSION['userid'] = $user->getObjectId();
-      header ("Location: index.php");   // redirect
+        if (!$user->get("corporate")) {
+            ParseUser::logOut();
+            session_destroy();
+            $errorMessage = "Sorry please create a Corporate Account to access this Portal.";
+        } else {
+            $_SESSION['login'] = "1";
+            $_SESSION['email'] = $email;
+            $_SESSION['userid'] = $user->getObjectId();
+            header ("Location: index.php");   // redirect
+        }
+
     } catch (ParseException $error) {
       $errorMessage = "Incorrect email or password!"; 
     }

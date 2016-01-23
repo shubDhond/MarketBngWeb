@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $user->set("username", $email);
         $user->set("password", $pass);
         $user->set("email", $email);
+        $user->set("corporate", true);
 
         // try signup
         try {

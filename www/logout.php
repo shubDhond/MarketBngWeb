@@ -7,7 +7,6 @@ ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',
 use Parse\ParseUser;
 ParseUser::logOut();
 
-$currentUser = ParseUser::getCurrentUser();
 session_destroy();
 header ("Location: index.php");
 ?>
