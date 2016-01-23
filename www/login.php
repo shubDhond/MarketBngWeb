@@ -1,10 +1,14 @@
-<?php 
-include("assets/templates/header.php");
+<?php
+session_start();
 require 'vendor/autoload.php';
+use Parse\ParseClient;
+ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',
+    'B7llkQxaYdCqUlFENwTCEeavarSvQp4It25a0kpH', '7QwWggaRtzFsNniqlgrXwtRqkLaXmW2BzOJMv6O9');
 use Parse\ParseUser;
 //This variable needs to be declared outside of the if block so that it is not undefined when people initially load the login page.
 $errorMessage = "";
 /*if page is accessed after attempt */
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $email = strtolower($email);
@@ -19,13 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // Do stuff after successful login.
       $_SESSION['email'] = $email;
       $_SESSION['login'] = "1";
-      header ("Location: index.php");
+      header ("Location: index.php");   // redirect
     } catch (ParseException $error) {
       $errorMessage = "Incorrect email or password!"; 
-    }   
-    
+    }
 }
 ?>
+<?php include("assets/templates/header.php"); ?>
 <br>
 <br>
 <br>

@@ -5,7 +5,7 @@
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2">
 					<h1>Welcome to MarketBang!</h1>
-					<h4>A simple place for people to analyze brain activity while doing surveys</h5>			
+					<h4>A simple place for people to analyze brain activity while doing surveys</h4>
 				</div>
                 
                 <div class="row">
