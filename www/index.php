@@ -12,7 +12,8 @@ include("assets/templates/header.php")
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2">
 					<h1>Welcome to MarketBang!</h1>
-					<h4>A simple place for people to analyze brain activity while doing surveys</h4>
+					<h4>Marketing tool which uses brain waves of users viewing advertisements
+						from muse wearable device to provide useful analytic information to companies.</h4>
 				</div>
                 
                 <div class="row">
@@ -20,7 +21,7 @@ include("assets/templates/header.php")
                         <p><br/><a href="create.php" class="btn btn-theme">Create a Survey</a></p>
                     </div>
                     <div class="col-lg-6">
-                        <p><br/><a href="#" class="btn btn-theme">View Submissions</a></p>
+                        <p><br/><a href="profile.php" class="btn btn-theme">View Submissions</a></p>
                     </div>
                 </div>
 			</div><!-- /row -->
