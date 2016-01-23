@@ -37,9 +37,8 @@ include("assets/templates/header.php");
         </div>
         <div class="modal-body">
             <form action="upload.php" method="post" enctype="multipart/form-data">
-                Select image to upload:
-                <input type="file" name="fileToUpload" id="fileToUpload">
-                <input type="submit" value="Upload Image" name="submit">
+                <input type="file" id="file" name="files[]" multiple="multiple" accept="image/*" />
+                <input type="submit" value="Upload!" />
             </form>
         </div>
     </div>

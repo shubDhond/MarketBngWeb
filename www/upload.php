@@ -10,68 +10,54 @@ use Parse\ParseObject;
 use Parse\ParseUser;
 use Parse\ParseFile;
 
-$error_msg = "";
-$target_dir = "assets/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$uploadOk = 1;
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-    if($check !== false) {
-        $error_msg = "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        $error_msg = "File is not an image.";
-        $uploadOk = 0;
-    }
-}
-// Check if file already exists
-if (file_exists($target_file)) {
-    $error_msg = "Sorry, file already exists.";
-    $uploadOk = 0;
-}
-// Check file size
-if ($_FILES["fileToUpload"]["size"] > 500000) {
-    $error_msg = "Sorry, your file is too large.";
-    $uploadOk = 0;
-}
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif" ) {
-    $error_msg = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-    $uploadOk = 0;
-}
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-    $error_msg = "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-} else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        $error_msg = "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        $error_msg = "Sorry, there was an error uploading your file.";
-    }
-}
-
-$localFilePath = "assets/".basename( $_FILES["fileToUpload"]["name"]);
-$file = ParseFile::createFromFile($localFilePath, basename( $_FILES["fileToUpload"]["name"]));
-$file->save();
-
 $currentUser = ParseUser::getCurrentUser();
-
 $survey = new ParseObject("surveys");
+$survey->set("userid", $currentUser->getObjectId());
 
-try {
-    $survey->set("userid", $currentUser->getObjectId());
-    $survey->set("img", $file);
+$valid_formats = array("jpg", "png", "gif", "zip", "bmp");
+$path = "assets/"; // Upload directory
+$count = 0;
+$message = "";
+if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
+    // Loop $_FILES to execute all files
+    foreach ($_FILES['files']['name'] as $f => $name) {
+        if ($count == 5){
+            break;
+        }
+        if ($_FILES['files']['error'][$f] == 4) {
+            continue; // Skip file if any error found
+        }
+        if ($_FILES['files']['error'][$f] == 0) {
+
+            if( ! in_array(pathinfo($name, PATHINFO_EXTENSION), $valid_formats) ){
+                $message = "$name is not a valid format";
+                continue; // Skip invalid file formats
+            }
+            else{ // No error found! Move uploaded files
+                if(move_uploaded_file($_FILES["files"]["tmp_name"][$f], $path.$name)){
+                    $count++; // Number of successfully uploaded file
+
+                    try {
+                        $localFilePath = "assets/".$name;
+                        $file = ParseFile::createFromFile($path.$name, $name);
+                        $survey->set("img".$count, $file);
+
+                    } catch (ParseException $ex) {
+                        // Execute any logic that should take place if the save fails.
+                        // error is a ParseException object with an error code and message.
+                        $message= 'Failed to create new object, with error message: ' . $ex->getMessage();
+                    }
+
+                }
+
+
+            }
+        }
+    }
     $survey->save();
-
-} catch (ParseException $ex) {
-    // Execute any logic that should take place if the save fails.
-    // error is a ParseException object with an error code and message.
-    echo 'Failed to create new object, with error message: ' . $ex->getMessage();
 }
+
+
 
 include("assets/templates/header.php");
 ?>
@@ -80,7 +66,7 @@ include("assets/templates/header.php");
 <div id="login-overlay" class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel"> <?=$error_msg?>!</h4>
+            <h4 class="modal-title" id="myModalLabel"> <?=$message?>!</h4>
         </div>
         <div class="modal-body">
             <h1>Thanks dude</h1>
