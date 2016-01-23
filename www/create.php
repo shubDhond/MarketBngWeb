@@ -44,3 +44,4 @@ include("assets/templates/header.php");
     </div>
 </div>
 
+<?php include("assets/templates/footer.php"); ?>
