@@ -9,24 +9,18 @@ use Parse\ParseQuery;
 use Parse\ParseObject;
 use Parse\ParseUser;
 
-/*
 $currentUser = ParseUser::getCurrentUser();
-
 $survey = new ParseObject("surveys");
+$survey->set("userid", $currentUser->getObjectId());
+$survey->save();
 
+$_SESSION['survey'] = $survey->getObjectId();
 
-try {
-    $survey->set("userid", $currentUser->getObjectId());
-    $survey->save();
-
-} catch (ParseException $ex) {
-    // Execute any logic that should take place if the save fails.
-    // error is a ParseException object with an error code and message.
-    echo 'Failed to create new object, with error message: ' . $ex->getMessage();
-}
-*/
 include("assets/templates/header.php");
 ?>
+
+<link href="assets/css/dropzone.css" type="text/css" rel="stylesheet" />
+<script src="assets/js/dropzone.js"></script>
 
 
 <br>
@@ -36,12 +30,10 @@ include("assets/templates/header.php");
             <h4 class="modal-title" id="myModalLabel">Upload some pictures dawg</h4>
         </div>
         <div class="modal-body">
-            <form action="upload.php" method="post" enctype="multipart/form-data">
-                <input type="file" id="file" name="files[]" multiple="multiple" accept="image/*" />
-                <input type="submit" value="Upload!" />
+            <form action="upload.php" method="post" class="dropzone" id="my-awesome-dropzone">
+
             </form>
         </div>
     </div>
 </div>
 
-<?php include("assets/templates/footer.php"); ?>
