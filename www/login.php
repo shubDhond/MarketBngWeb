@@ -3,6 +3,7 @@ require 'vendor/autoload.php';
 use Parse\ParseClient;
 use Parse\ParseUser;
 use Parse\ParseQuery;
+use Parse\ParseException;
 
 session_start();
 ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',

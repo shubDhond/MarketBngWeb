@@ -8,6 +8,7 @@ ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',
 use Parse\ParseQuery;
 use Parse\ParseObject;
 use Parse\ParseUser;
+use Parse\ParseException;
 
 $currentUser = ParseUser::getCurrentUser();
 $survey = new ParseObject("surveys");

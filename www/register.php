@@ -8,6 +8,7 @@ ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',
 use Parse\ParseUser;
 use Parse\ParseFile;
 use Parse\ParseObject;
+use Parse\ParseException;
 
 
 //Initialize error message.

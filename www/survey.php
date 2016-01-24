@@ -8,6 +8,7 @@ ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',
 use Parse\ParseQuery;
 use Parse\ParseObject;
 use Parse\ParseUser;
+use Parse\ParseException;
 
 $currentUser = ParseUser::getCurrentUser();
 $survey_id = $_GET['id'];
@@ -15,9 +16,12 @@ $survey_id = $_GET['id'];
 $query = new ParseQuery("surveys");
 $survey = $query->get($survey_id);
 
-if ($survey->get("userid") != $currentUser->getObjectId()){
+if (($survey->get("userid") != $currentUser->getObjectId()) || ($currentUser == null)){
     header("Location: index.php");
 }
+
+//pull results data
+//$results = $survey->get("results");
 
 ?>
 
@@ -28,6 +32,7 @@ if ($survey->get("userid") != $currentUser->getObjectId()){
     <div class="well">
         <h3 class="title text-center">Survey id: <?=$survey->getObjectId()?> </h3>
         <h4 class="title text-center">Created by: <?=$currentUser->get("name")?></h4>
+
         <div class="form-group">
             <form action="upload.php" method="post" class="dropzone" id="my-awesome-dropzone">
             </form>
