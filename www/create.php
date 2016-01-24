@@ -13,6 +13,7 @@ use Parse\ParseException;
 $currentUser = ParseUser::getCurrentUser();
 $survey = new ParseObject("surveys");
 $survey->set("userid", $currentUser->getObjectId());
+$survey->set("logo_url", $currentUser->get("logo_url"));
 $survey->save();
 
 $_SESSION['survey'] = $survey->getObjectId();
