@@ -48,7 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $user->set("email", $email);
         $user->set("corporate", true);
         $user->set("name", $company_name);
+
         $user->set("logo", $file);
+
+        unlink($target_dir.$name);
         // try signup
         try {
             $user->signUp();
@@ -81,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                           <form action="register.php" method="post" class="intro text-center" enctype="multipart/form-data">
                               <div class="form-group">
                                   <label for="username" class=control-label">Logo</label>
-                                  <input type="file" name="file" id="file" class="inputs">
+                                  <input type="file" name="file" id="file" class="inputs" required>
                                   <span class="help-block"></span>
                               </div>
                               <div class="form-group">

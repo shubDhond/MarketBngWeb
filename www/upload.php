@@ -39,5 +39,7 @@ if (!empty($_FILES)) {
     $survey->set("img".$i, $file);
     $survey->save();
 
+    unlink($targetFile);
+
 }
 ?>

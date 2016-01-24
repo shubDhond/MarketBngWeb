@@ -9,9 +9,6 @@ session_start();
 ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',
     'B7llkQxaYdCqUlFENwTCEeavarSvQp4It25a0kpH', '7QwWggaRtzFsNniqlgrXwtRqkLaXmW2BzOJMv6O9');
 
-
-
-
 //This variable needs to be declared outside of the if block so that it is not undefined when people initially load the login page.
 $errorMessage = "";
 /*if page is accessed after attempt */
