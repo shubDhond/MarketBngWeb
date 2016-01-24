@@ -36,6 +36,12 @@ include("assets/templates/header.php");
 
                     echo '<a href="survey.php?id='. $id . '">'. "Survey id: " . $id . '</a>'.'<br>';
                 }
+                if (count($results) == 0){
+                    echo "You have not created any surveys yet!";
+                    echo '<br>';
+                    echo '<a href="create.php' .'"">'. 'Create one now!' .'</a>'.'<br>';
+
+                }
             ?>
         </div>
     </div>
