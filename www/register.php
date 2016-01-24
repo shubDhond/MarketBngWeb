@@ -6,6 +6,7 @@ session_start();
 ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',
     'B7llkQxaYdCqUlFENwTCEeavarSvQp4It25a0kpH', '7QwWggaRtzFsNniqlgrXwtRqkLaXmW2BzOJMv6O9');
 use Parse\ParseUser;
+use Parse\ParseFile;
 use Parse\ParseObject;
 
 
@@ -21,12 +22,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$pass = $_POST['pass'];
     
     //make sure all fields are set
-    if (!empty($email) && !empty($pass) && !empty($name)) {
+    if ((!empty($email) && !empty($pass) && !empty($name)) && isset($_POST['submit'])){
 
         /* strip of any sketchy characters */
         $email = htmlspecialchars($email);
-        $name = htmlspecialchars($name);
+        $company_name = htmlspecialchars($name);
         $pass = htmlspecialchars($pass);
+
+        $target_dir = "assets/uploads/";
+        $name = $_FILES['file']['name'];
+        $tempFile = $_FILES['file']['tmp_name'];
+
+        if (isset($name)){
+            move_uploaded_file($tempFile,$target_dir.$name);
+        }
+
+        $file = ParseFile::createFromFile($target_dir.$name, "logo");
+        $file->save();
 
         // create new user object
         $user = new ParseUser();
@@ -34,7 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $user->set("password", $pass);
         $user->set("email", $email);
         $user->set("corporate", true);
-
+        $user->set("name", $company_name);
+        $user->set("logo", $file);
         // try signup
         try {
             $user->signUp();
@@ -64,9 +77,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                   <div class="col-xs-12">
                       <div class="well">
                           <h3 class="title text-center"><?PHP print $errorMessage;?> </h3>
-                          <form action="register.php" method="post" class="intro text-center">
+                          <form action="register.php" method="post" class="intro text-center" enctype="multipart/form-data">
                               <div class="form-group">
-                                  <label for="username" class="control-label">Name</label>
+                                  <label for="username" class=control-label">Logo</label>
+                                  <input type="file" name="file" id="file" class="inputs">
+                                  <span class="help-block"></span>
+                              </div>
+                              <div class="form-group">
+                                  <label for="username" class="control-label">Company Name</label>
                                   <input  class="form-control" type="text" name="name" placeholder="Name" class="inputs" required><br>
                                   <span class="help-block"></span>
                               </div>
@@ -85,7 +103,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                   <input class="form-control" type="password" name="pass2" placeholder="Re-enter Password" class="inputs" required><br>
                                   <span class="help-block"></span>
                               </div>
-                              <button type="submit" class="btn btn-theme btn-block">Register</button>
+
+                              <input type="submit" class="btn btn-theme btn-block" value="submit" name="submit">
                           </form>
                       </div>
                   </div>
