@@ -7,7 +7,9 @@ ParseClient::initialize('6OsMY7JbzoLcCpP1UBgMUJdc4Ol68kDskzq8b3aw',
 use Parse\ParseUser;
 use Parse\ParseObject;
 use Parse\ParseQuery;
+
 $currentUser = ParseUser::getCurrentUser();
+
 
 $query = new ParseQuery("surveys");
 $query->equalTo("userid", $currentUser->getObjectId());

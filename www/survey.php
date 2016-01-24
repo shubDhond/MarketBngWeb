@@ -15,6 +15,10 @@ $survey_id = $_GET['id'];
 $query = new ParseQuery("surveys");
 $survey = $query->get($survey_id);
 
+if ($survey->get("userid") != $currentUser->getObjectId()){
+    header("Location: index.php");
+}
+
 ?>
 
 <?php include("assets/templates/header.php"); ?>
@@ -23,6 +27,7 @@ $survey = $query->get($survey_id);
 <div id="login-overlay" class="modal-dialog">
     <div class="well">
         <h3 class="title text-center">Survey id: <?=$survey->getObjectId()?> </h3>
+        <h4 class="title text-center">Created by: <?=$currentUser->get("name")?></h4>
         <div class="form-group">
             <form action="upload.php" method="post" class="dropzone" id="my-awesome-dropzone">
             </form>
