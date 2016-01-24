@@ -11,7 +11,7 @@ include("assets/templates/header.php")
 	    <div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2">
-					<h1>Welcome to MarketBang!</h1>
+					<h1>Welcome to Surwave!</h1>
 					<h4>Marketing tool which uses brain waves of users viewing advertisements
 						from muse wearable device to provide useful analytic information to companies.</h4>
 				</div>
