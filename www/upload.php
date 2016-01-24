@@ -34,6 +34,7 @@ if (!empty($_FILES)) {
 
     $file = ParseFile::createFromFile($targetFile, "img".$i);
     $file->save();
+    $survey->set("file_url".$i, $file->getURL());
 
     //$survey->add("images", $file);
     $survey->set("img".$i, $file);

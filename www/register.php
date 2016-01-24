@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $user->set("name", $company_name);
 
         $user->set("logo", $file);
+        $user->set("logo_url", $file->getURL());
 
         unlink($target_dir.$name);
         // try signup
