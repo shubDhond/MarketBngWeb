@@ -29,7 +29,9 @@ include("assets/templates/header.php");
             <?php
                 for ($i = 0; $i < count($results); $i++) {
                     $object = $results[$i];
-                    echo "Survey id: " . $object->getObjectId() . '<br>';
+                    $id = $object->getObjectId();
+
+                    echo '<a href="survey.php?id='. $id . '">'. "Survey id: " . $id . '</a>'.'<br>';
                 }
             ?>
         </div>

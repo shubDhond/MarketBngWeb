@@ -25,15 +25,15 @@ include("assets/templates/header.php");
 
 <br>
 <div id="login-overlay" class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Upload some pictures dawg</h4>
-        </div>
-        <div class="modal-body">
-            <form action="upload.php" method="post" class="dropzone" id="my-awesome-dropzone">
+    <div class="well">
+        <h3 class="title text-center">Upload your images here! </h3>
+            <div class="form-group">
+                <form action="upload.php" method="post" class="dropzone" id="my-awesome-dropzone">
+                </form>
+                <span class="help-block"></span>
+            </div>
 
-            </form>
-        </div>
+        <a href="survey.php?id=<?=$survey->getObjectId()?>" class="btn btn-theme btn-block">Done</a>
     </div>
 </div>
 
